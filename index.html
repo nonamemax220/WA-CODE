@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat...</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #080808;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat {
+      width: 90%;
+      max-width: 500px;
+      padding: 25px;
+    }
+
+    .msg {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: muncul .4s forwards;
+      background: #202020;
+      padding: 13px 17px;
+      border-radius: 18px;
+      margin: 12px 0;
+      width: fit-content;
+      max-width: 85%;
+    }
+
+    .me {
+      margin-left: auto;
+      background: #075e54;
+      border-bottom-right-radius: 5px;
+    }
+
+    .deleted {
+      background: #202020;
+      color: #999;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    .typing {
+      color: #777;
+      font-size: 13px;
+      margin: 10px;
+    }
+
+    @keyframes muncul {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="chat" id="chat"></div>
+
+<script>
+
+const messages = [
+  "woiii...",
+  "chat aku njirr 😭",
+  "chat aku lahh...",
+  "ayolahhh",
+  "plisss",
+  "basa-basi kek...",
+  "nanya apa kek...",
+  "bahas hal random juga gapapaa",
+  "nanya mesin cuci kamu merek apa kek 😭",
+  "terserahh mau bahas apaa",
+  "yang penting chat akuu 😭",
+  "masa aku harus bikin HTML dulu buat nyuruh kamu chat 🗿",
+  "btw",
+  "jago juga gw jirr",
+] ;
+  
+const chat = document.getElementById("chat");
+let i = 0;
+
+function kirimPesan() {
+
+  if (i >= messages.length) {
+
+    // Jeda sebelum pesan terakhir
+    setTimeout(() => {
+
+      const deleted = document.createElement("div");
+
+      deleted.className = "msg deleted";
+      deleted.innerText = "Anda menghapus pesan ini";
+
+      chat.appendChild(deleted);
+
+    }, 2500);
+
+    return;
+  }
+
+  const typing = document.createElement("div");
+
+  typing.className = "typing";
+  typing.innerText = "sedang mengetik...";
+
+  chat.appendChild(typing);
+
+  setTimeout(() => {
+
+    typing.remove();
+
+    const msg = document.createElement("div");
+
+    msg.className = "msg me";
+    msg.innerText = messages[i];
+
+    chat.appendChild(msg);
+
+    i++;
+
+    setTimeout(kirimPesan, 1300);
+
+  }, 900);
+}
+
+kirimPesan();
+
+</script>
+
+</body>
+</html>
